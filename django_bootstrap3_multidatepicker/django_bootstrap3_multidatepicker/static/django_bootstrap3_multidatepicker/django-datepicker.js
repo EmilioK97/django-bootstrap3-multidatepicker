@@ -25,7 +25,7 @@ DjangoBootstrapDatePicker.prototype.jsonDateFormat = function(date) {
   // returns the date as a string formatted by
   // yyyy/mm/dd
   // this way we will parse the date in python
-  var month = '' + date.getUTCMonth();
+  var month = '' + (date.getUTCMonth() + 1);
   var d = '' + date.getUTCDate();
   if (month.length == 1) {
     month = '0' + month;
