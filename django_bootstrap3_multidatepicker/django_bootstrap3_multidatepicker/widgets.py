@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from django.forms.widgets import Widget, HiddenInput
+from django.forms.widgets import Widget, HiddenInput, Input
 try:
     from django.forms.utils import flatatt
 except ImportError:
@@ -25,7 +25,7 @@ from django.utils.encoding import force_text
 import json
 
 
-class BootstrapDatepickerInput(HiddenInput):
+class BootstrapDatepickerInput(Input):
 
     @staticmethod
     def get_picker_language():
@@ -234,7 +234,7 @@ class BootstrapDatepickerInput(HiddenInput):
         return js_open + self.js_content() + js_close
 
     def render(self, name, value, attrs=None):
-        input_attrs = self.build_attrs(attrs, type=self.input_type, name=name)
+        input_attrs = self.build_attrs(attrs, extra_attrs={'name': name, 'value': value})
         icon_attrs = dict([(key, conditional_escape(val))
                           for key, val in self.icon_attrs.items()])
         if not self.picker_id:
@@ -266,3 +266,4 @@ class BootstrapDatepickerInput(HiddenInput):
             options=json.dumps(self.options))
         content = div + '\n' + input_ + '\n' + js
         return mark_safe(force_text(content))
+
